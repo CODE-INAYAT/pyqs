@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
 body {
-   /*background: linear-gradient(135deg, #1EC19F, #A941BB); */
+    /*background: linear-gradient(135deg, #1EC19F, #A941BB); */
     background-image: url("G1_Background_img.png");
     background-size: 100% 100%;
     background-size: cover;

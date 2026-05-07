@@ -3,20 +3,23 @@ document.addEventListener('DOMContentLoaded', function () {
     var successOverlay = document.getElementById('success');
     var okButton = document.getElementById('okButton');
 
-    var links = document.querySelectorAll('#card a');
-    links.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            showLoadingOverlay();
+    var card = document.getElementById('card');
+    if (card) {
+        card.addEventListener('click', function (event) {
+            var link = event.target.closest('a');
+            if (link && card.contains(link)) {
+                event.preventDefault();
+                showLoadingOverlay();
 
-            // Simulate a 3-second delay
-            setTimeout(function () {
-                hideLoadingOverlay();
-                window.location.href = event.target.getAttribute('href');
-                showSuccessOverlay();
-            }, 3000);
+                // Simulate a 3-second delay
+                setTimeout(function () {
+                    hideLoadingOverlay();
+                    window.location.href = link.getAttribute('href');
+                    showSuccessOverlay();
+                }, 3000);
+            }
         });
-    });
+    }
 
     okButton.addEventListener('click', function () {
         hideSuccessOverlay();
