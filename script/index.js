@@ -79,50 +79,57 @@ window.addEventListener("DOMContentLoaded", function () {
 // });
 
 ///WhatsApp Group Join does not required checkbox code in html///
-document.addEventListener('DOMContentLoaded', () => {
-    const contactModal = document.getElementById('contactModal');
-    const closeModalBtn = document.getElementById('closeModal');
-    const whatsappLink = document.getElementById('whatsappLink');
-    const alertElement = document.getElementById("alert-border-3");
+// Set this to true to show the modal, or false to hide it globally
+const ENABLE_WHATSAPP_MODAL = false;
 
-    // Function to show the modal
-    function showModal() {
-        // Always display the modal
-        contactModal.style.display = 'flex';
+document.addEventListener("DOMContentLoaded", () => {
+  const contactModal = document.getElementById("contactModal");
+
+  if (!ENABLE_WHATSAPP_MODAL) {
+    if (contactModal) contactModal.style.display = "none";
+    return; // Skip the rest of the modal logic
+  }
+
+  const closeModalBtn = document.getElementById("closeModal");
+  const whatsappLink = document.getElementById("whatsappLink");
+  const alertElement = document.getElementById("alert-border-3");
+
+  // Function to show the modal
+  function showModal() {
+    // Always display the modal
+    contactModal.style.display = "flex";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    // Simply hide the modal
+    contactModal.style.display = "none";
+    alertElement.style.display = "flex";
+    scrollToTop();
+  }
+
+  // Function to scroll to modal
+  function scrollToModal() {
+    // Check if modal is visible
+    if (contactModal.style.display === "flex") {
+      // Calculate the scroll position to center the modal vertically
+      const modalRect = contactModal.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const modalHeight = modalRect.height;
+
+      // Calculate the scroll position to center the modal
+      const scrollPosition =
+        modalRect.top + window.pageYOffset - (viewportHeight - modalHeight) / 2;
+
+      // Smooth scroll to the calculated position
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
     }
+  }
 
-    // Function to close the modal
-    function closeModal() {
-        // Simply hide the modal
-        contactModal.style.display = 'none';
-        alertElement.style.display = "flex";
-        scrollToTop();
-    }
-
-    // Function to scroll to modal
-    function scrollToModal() {
-        // Check if modal is visible
-        if (contactModal.style.display === 'flex') {
-            // Calculate the scroll position to center the modal vertically
-            const modalRect = contactModal.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const modalHeight = modalRect.height;
-
-            // Calculate the scroll position to center the modal
-            const scrollPosition =
-                modalRect.top +
-                window.pageYOffset -
-                (viewportHeight - modalHeight) / 2;
-
-            // Smooth scroll to the calculated position
-            window.scrollTo({
-                top: scrollPosition,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-//Scroll to top
+  //Scroll to top
   function scrollToTop() {
     window.scrollTo({
       top: 0,
@@ -130,20 +137,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-    // Ensure WhatsApp link opens in new tab
-    whatsappLink.setAttribute('target', '_blank');
-    whatsappLink.setAttribute('rel', 'noopener noreferrer');
+  // Ensure WhatsApp link opens in new tab
+  whatsappLink.setAttribute("target", "_blank");
+  whatsappLink.setAttribute("rel", "noopener noreferrer");
 
-    // Event listener for close button
-    closeModalBtn.addEventListener('click', closeModal);
+  // Event listener for close button
+  closeModalBtn.addEventListener("click", closeModal);
 
-    // Show modal on page load
-    showModal();
+  // Show modal on page load
+  showModal();
 
-    // Window onload to handle scrolling after all content is loaded
-    window.onload = () => {
-        setTimeout(scrollToModal, 500);
-    };
+  // Window onload to handle scrolling after all content is loaded
+  window.onload = () => {
+    setTimeout(scrollToModal, 500);
+  };
 });
 
 //Animation on whatsapp texts
@@ -261,53 +268,52 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 //RCR
-document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('contextmenu', function (event) {
-        event.preventDefault();
-    });
+document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+  });
 });
 
 //DMR win&Max
-document.addEventListener('keydown', function (e) {
-    // Disable F12 key (developer tools)
-    if (e.keyCode === 123) {
-        e.preventDefault();
-    }
-    // Disable Ctrl+Shift+I and Ctrl+Shift+J (developer tools) for Windows
-    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
-        e.preventDefault();
-    }
-    // Disable Command+Option+I and Command+Option+J (developer tools) for macOS
-    if (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74)) {
-        e.preventDefault();
-    }
-    // Disable Ctrl+U (view source) for Windows
-    if (e.ctrlKey && e.keyCode === 85) {
-        e.preventDefault();
-    }
-    // Disable Command+Option+U (view source) for macOS
-    if (e.metaKey && e.altKey && e.keyCode === 85) {
-        e.preventDefault();
-    }
+document.addEventListener("keydown", function (e) {
+  // Disable F12 key (developer tools)
+  if (e.keyCode === 123) {
+    e.preventDefault();
+  }
+  // Disable Ctrl+Shift+I and Ctrl+Shift+J (developer tools) for Windows
+  if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
+    e.preventDefault();
+  }
+  // Disable Command+Option+I and Command+Option+J (developer tools) for macOS
+  if (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74)) {
+    e.preventDefault();
+  }
+  // Disable Ctrl+U (view source) for Windows
+  if (e.ctrlKey && e.keyCode === 85) {
+    e.preventDefault();
+  }
+  // Disable Command+Option+U (view source) for macOS
+  if (e.metaKey && e.altKey && e.keyCode === 85) {
+    e.preventDefault();
+  }
 });
 
 //SSR
-document.addEventListener('keyup', function (e) {
-    if (e.key === 'PrintScreen') {
-        navigator.clipboard.writeText('');
-        alert('Screenshots are not allowed on this page.');
-    }
+document.addEventListener("keyup", function (e) {
+  if (e.key === "PrintScreen") {
+    navigator.clipboard.writeText("");
+    alert("Screenshots are not allowed on this page.");
+  }
 });
 
 //Ctr+P RES. win&Mac
-document.addEventListener('keydown', function (e) {
-    // Check for Ctrl+P on Windows and Command+P on macOS
-    if ((e.ctrlKey && e.key === 'p') || (e.metaKey && e.key === 'p')) {
-        e.preventDefault();
-        alert('Printing is disabled on this page.');
-    }
+document.addEventListener("keydown", function (e) {
+  // Check for Ctrl+P on Windows and Command+P on macOS
+  if ((e.ctrlKey && e.key === "p") || (e.metaKey && e.key === "p")) {
+    e.preventDefault();
+    alert("Printing is disabled on this page.");
+  }
 });
-
 
 //Switch Functionality
 document.addEventListener("DOMContentLoaded", function () {
@@ -623,3 +629,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// Function to turn on/off the WhatsApp contact modal in just one click
+window.toggleContactModal = function (show) {
+  const contactModal = document.getElementById("contactModal");
+  if (contactModal) {
+    contactModal.style.display = show ? "flex" : "none";
+  }
+};
